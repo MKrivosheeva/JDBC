@@ -11,26 +11,6 @@ public class MySqlDbExecutor implements IDbExecutor {
     Statement statement = null;
 
     @Override
-    public ResultSet execute(String sqlRequest) throws SQLException {
-        IResources resource = (IResources) new PropertiesReader();
-        Map<String, String> props = resource.read();
-        String url = String.format("%s/%s", props.get("url"), props.get("db_name"));
-        try {
-            connection = DriverManager.getConnection(url, props.get("username"), props.get("password"));
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sqlRequest);
-            return resultSet;
-
-        } finally {
-            if (statement != null) {
-                statement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        }
-    }
-    @Override
     public void executeCRUD (String sqlRequest) throws SQLException {
         IResources resource = (IResources) new PropertiesReader();
         Map<String, String> props = resource.read();

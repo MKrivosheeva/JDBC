@@ -1,15 +1,13 @@
 package main;
 
-import db.IDbExecutor;
-import db.MySqlDbExecutor;
+import dataToInsertIntoTables.GroupsData;
+import dataToInsertIntoTables.TablesList;
 import dbOperations.CreateTable;
 import dbOperations.InsertDataIntoTable;
 import dbOperations.SelectDataFromTable;
 import dbOperations.UpdateTableData;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
 
@@ -19,16 +17,17 @@ public class Main {
         InsertDataIntoTable insertDataIntoTable = new InsertDataIntoTable();
         SelectDataFromTable selectDataFromTable = new SelectDataFromTable();
         UpdateTableData updateTableData  = new UpdateTableData();
-        createTables.createTables();
-        insertDataIntoTable.insertDataIntoStudentsTable();
-        insertDataIntoTable.insertDataIntoCuratorsTable();
-        insertDataIntoTable.insertDataIntoGroupsTable();
-        selectDataFromTable.joinAllData();
-        selectDataFromTable.countStudentsBoys();
-        selectDataFromTable.countStudentsGirls();
-        updateTableData.updateCurator();
-        selectDataFromTable.printGroupsWithCurators();
-        selectDataFromTable.printStudentsFromGroup();
+
+          createTables.createTables();
+          insertDataIntoTable.insertDataIntoStudentsTable();
+          insertDataIntoTable.insertDataIntoCuratorsTable();
+          insertDataIntoTable.insertDataIntoGroupsTable();
+          selectDataFromTable.joinAllData();
+          selectDataFromTable.countStudentsBoys();
+          selectDataFromTable.countStudentsGirls();
+          updateTableData.updateCurator(ThreadLocalRandom.current().nextInt(1, 5), ThreadLocalRandom.current().nextInt(1, 3));
+          selectDataFromTable.printGroupsWithCurators(TablesList.GROUPS.getName(), TablesList.CURATORS.getName());
+          selectDataFromTable.printStudentsFromGroup(GroupsData.getRandomGroup().getName());
 
     }
 }
